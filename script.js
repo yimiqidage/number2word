@@ -1,10 +1,13 @@
+
+
 const copyDiv = document.getElementById("copyDiv");
 const copyBtn = document.getElementById("copyBtn");
 const outputText = document.getElementById("outputText");
 // const decodeBtn = document.getElementById("decodeBtn");
 // const encodeBtn = document.getElementById("encodeBtn");
-const swapBtn = document.getElementById("swapBtn");
+// const swapBtn = document.getElementById("swapBtn");
 const number2wordBtn = document.getElementById("number2wordBtn");
+const word2numberBtn = document.getElementById("word2numberBtn");
 let originalButtonText = copyBtn.textContent;
 
 function handleCopyClick() {
@@ -70,6 +73,53 @@ function numberToSimilarChinese() {
 	outputText.value = result;
 }
 
+// 映射表：拼音对应数字
+const pinyinToNumberMap = {
+	yi: 1,
+	er: 2,
+	san: 3,
+	sa: 3,
+	si: 4,
+	wu: 5,
+	liu: 6,
+	qi: 7,
+	ba: 8,
+	jiu: 9,
+	ling: 0,
+
+	// 添加更多拼音及对应数字...
+};
+
+// 拼音转数字函数
+function convertPinyinToNumber(pinyin) {
+	// 将拼音转为小写，以便匹配映射表
+	const lowerCasePinyin = pinyin.toLowerCase();
+	console.log("toLowerCase:",lowerCasePinyin)
+
+	// 在映射表中查找对应的数字
+	const number = pinyinToNumberMap[lowerCasePinyin];
+
+	// 返回结果
+	return number !== undefined ? number : '未知拼音';
+}
+
+// 将多个汉字转换为拼音对应的数字
+function convertToNumbers() {
+	console.log("convertToNumbers,");
+	const inputTextTmp = inputText.value.trim();
+
+	const pinyinArray = PinyinHelper.convertToPinyinString(inputTextTmp, '#', PinyinFormat.WITHOUT_TONE).split('#');
+
+	let resultText = '';
+	for (const pinyin of pinyinArray) {
+		const number = convertPinyinToNumber(pinyin);
+		resultText += number ;
+	}
+
+	outputText.value = resultText.trim();
+	// document.getElementById('outputResult').innerText = resultText.trim();
+}
+
 function decodeBase64() {
 	const inputTextValue = inputText.value.trim();
 	if (inputTextValue === "") {
@@ -130,5 +180,5 @@ copyDiv.addEventListener("click", handleCopyClick);
 // decodeBtn.addEventListener("click", decodeBase64);
 // encodeBtn.addEventListener("click", encodeBase64);
 number2wordBtn.addEventListener("click", numberToSimilarChinese);
-swapBtn.addEventListener("click", swapValues);
-swapBtn.addEventListener("click", swapValues);
+// swapBtn.addEventListener("click", swapValues);
+word2numberBtn.addEventListener("click", convertToNumbers);
