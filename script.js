@@ -5,7 +5,6 @@ const copyBtn = document.getElementById("copyBtn");
 const outputText = document.getElementById("outputText");
 // const decodeBtn = document.getElementById("decodeBtn");
 // const encodeBtn = document.getElementById("encodeBtn");
-// const swapBtn = document.getElementById("swapBtn");
 const number2wordBtn = document.getElementById("number2wordBtn");
 const word2numberBtn = document.getElementById("word2numberBtn");
 let originalButtonText = copyBtn.textContent;
@@ -94,7 +93,6 @@ const pinyinToNumberMap = {
 function convertPinyinToNumber(pinyin) {
 	// 将拼音转为小写，以便匹配映射表
 	const lowerCasePinyin = pinyin.toLowerCase();
-	console.log("toLowerCase:",lowerCasePinyin)
 
 	// 在映射表中查找对应的数字
 	const number = pinyinToNumberMap[lowerCasePinyin];
@@ -180,5 +178,4 @@ copyDiv.addEventListener("click", handleCopyClick);
 // decodeBtn.addEventListener("click", decodeBase64);
 // encodeBtn.addEventListener("click", encodeBase64);
 number2wordBtn.addEventListener("click", numberToSimilarChinese);
-// swapBtn.addEventListener("click", swapValues);
 word2numberBtn.addEventListener("click", convertToNumbers);
